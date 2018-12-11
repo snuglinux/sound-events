@@ -1,5 +1,5 @@
 pkgname=sound-events
-pkgver=0.0.1
+pkgver=0.0.2
 pkgrel=1
 pkgdesc="Sound system events for the snuglinux distribution."
 arch=('any')
@@ -7,7 +7,7 @@ url="https://github.com/snuglinux/${pkgname}"
 license=('GPL2')
 depends=("alsa-utils")
 source=("https://github.com/snuglinux/${pkgname}/archive/${pkgver}.tar.gz")
-md5sums=('3b24a6eec62b7481867919df3f20ce68')
+md5sums=('631013acbc1800866e370501a52336fe')
 backup=( "etc/${pkgname}.conf" )
 package(){
   cd "$srcdir/${pkgname}-${pkgver}"

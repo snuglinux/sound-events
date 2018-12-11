@@ -1,9 +1,10 @@
 #!/bin/bash
 
 BASE_NAME=`basename "$0"`
-CURRENT_VERSION=0.0.0
+CURRENT_VERSION=0.0.1
 INSTALL_PREFIX=/usr
 PO_DIR=${INSTALL_PREFIX}/share/${BASE_NAME}
+lang=`echo $LANG | cut -b 1,2`
 
 #Loading message file
 if [ -f "${PO_DIR}/$BASE_NAME.messages" ]; then
@@ -38,9 +39,12 @@ if [ -z "${AUDIO_THEME}" ]; then
    show_message VAR_NOT_SET 'AUDIO_THEME'
    exit 1;
 fi
+if [ -z "${lang}" ]; then
+   lang=en
+fi
 
-if [ -z "${LANG}" ]; then
-   LANG=en
+if [ -z "${SOUND_LEVEL}" ]; then
+   SOUND_LEVEL="100"
 fi
 
 SOUND_EVENT=""
@@ -79,8 +83,8 @@ set_options(){
 
 set_options $1
 
-amixer set Master 100% unmute
-aplay -D ${DEVICE_NAME} ${SOUND_DIR}/${AUDIO_THEME}/${LANG}/${SOUND_EVENT}.wav
+amixer set Master ${SOUND_LEVEL}% unmute
+aplay -D ${DEVICE_NAME} ${SOUND_DIR}/${AUDIO_THEME}/${lang}/${SOUND_EVENT}.wav
 
 if [ "$?" = 1 ]; then
    exit 1;
