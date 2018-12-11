@@ -79,6 +79,7 @@ set_options(){
 
 set_options $1
 
+amixer set Master 100% unmute
 aplay -D ${DEVICE_NAME} ${SOUND_DIR}/${AUDIO_THEME}/${LANG}/${SOUND_EVENT}.wav
 
 if [ "$?" = 1 ]; then

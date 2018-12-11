@@ -7,8 +7,8 @@ url="https://github.com/snuglinux/${pkgname}"
 license=('GPL2')
 depends=("alsa-utils")
 source=("https://github.com/snuglinux/${pkgname}/archive/${pkgver}.tar.gz")
-md5sums=('b3cbde2f8c9eee2c69449624385cbb57')
-
+md5sums=('3b24a6eec62b7481867919df3f20ce68')
+backup=( "etc/${pkgname}.conf" )
 package(){
   cd "$srcdir/${pkgname}-${pkgver}"
 
@@ -19,12 +19,15 @@ package(){
   install -d "${pkgdir}/usr/share/licenses/${pkgname}"
   install -d "${pkgdir}/usr/share/sounds/${pkgname}"
   install -d "${pkgdir}/usr/lib/systemd/system/"
+  install -d "${pkgdir}/usr/share/${pkgname}"
 
   # Copy files
   install -m755 ${pkgname}        "${pkgdir}/usr/bin"
   install -m644 README.md         "${pkgdir}/usr/share/doc/${pkgname}/README"
   install -Dm 644 COPYING         "${pkgdir}/usr/share/licenses/${pkgname}/LICENSE"
   install -Dm 644 ${pkgname}.conf "${pkgdir}/etc"
+
+  install -m644 ${pkgname}.messages  "${pkgdir}/usr/share/${pkgname}"
   install -m644 systemd/sound-startup.service  "${pkgdir}/usr/lib/systemd/system"
   install -m644 systemd/sound-shutdown.service "${pkgdir}/usr/lib/systemd/system"
   cp -R   sounds/*                "${pkgdir}/usr/share/sounds/${pkgname}"
