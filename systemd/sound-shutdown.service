@@ -1,0 +1,14 @@
+[Unit]
+Description=Sound system shutdown
+Requires=sound.target
+Before=sound.target reboot.target poweroff.target halt.target kexec.target
+DefaultDependencies=no
+
+[Service]
+Type=oneshot
+RemainAfterExit=true
+ExecStart=/bin/true
+ExecStop=/bin/sound-events -shutdown
+
+[Install]
+WantedBy=default.target

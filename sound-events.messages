@@ -1,0 +1,172 @@
+lang=`echo $LANG | cut -b 1,2`
+
+show_message() {
+
+case $1 in
+##############
+SHOW_USAGE)############################################################
+##############
+case $lang in
+
+ru)
+cat <<EOFUSAGE
+${BASE_NAME} - скрипт для выполнения звуковых событий системы.
+
+Используются следующие опции командной строки:
+				
+ -v --version : Версия скрипта.
+				
+ -h --help: Показать справку и выйти.
+				
+ -startup: Загрузка системы завершена.
+				
+ -shutdown: Завершение работы системы.
+				
+Пример: ${BASE_NAME} -h
+
+EOFUSAGE
+;;
+
+uk)
+cat <<EOFUSAGE
+${BASE_NAME} - скрипт для виконання звукових подій системи.
+
+Використовуються наступні опції командного рядка:
+				
+ -v --version : Версія скрипта.
+				
+ -h --help : Показати довідку і вийти.
+				
+ -startup: Завантаження системи завершено.
+				
+ -shutdown: Завершення роботи системи.
+				
+Приклад: ${BASE_NAME} -h
+
+EOFUSAGE
+;;
+
+*)
+cat << EOFUSAGE
+${BASE_NAME} - script for performing system sound events.
+
+Use the following command line options:
+				
+ -v --version : Version of the script.
+				
+ -h --help : Show help and exit.
+				
+ -startup: System boot complete.
+				
+ -shutdown: System shutdown is in progress.
+				
+Example: ${BASE_NAME} -h
+
+EOFUSAGE
+;;
+esac
+;;
+
+#############
+CURRENT_VERSION)
+#############
+case $lang in
+ru) echo -e "Версия скрипта ${FC_4}${CURRENT_VERSION}${FC_0}";;
+uk) echo -e "Версія скрипта ${FC_4}${CURRENT_VERSION}${FC_0}";;
+*)  echo -e "Script version ${FC_4}${CURRENT_VERSION}${FC_0}";;
+esac
+;;
+
+################
+FILE_NOT_FOUND*)#######################################################
+################
+case $lang in
+ru) echo -e "${FC_2}Ошибка:${FC_0} Файл ${FC_3}$2${FC_0} не найден!";;
+uk) echo -e "${FC_2}Помилка:${FC_0} Файл ${FC_3}$2${FC_0} не знайдено!";;
+*)  echo -e "${FC_2}ERROR:${FC_0} File ${FC_3}$2${FC_0} not found!";;
+esac
+;;
+
+###############
+UNKNOWN_ARG)##########################################################
+###############
+case $lang in
+ru) echo -e "${FC_2}Ошибка:${FC_0} Неизвестный аргумент ${FC_3}$2${FC_0}";;
+uk) echo -e "${FC_2}Помилка:${FC_0} Невідомий аргумент ${FC_3}$2${FC_0}";;
+*)  echo -e "${FC_2}ERROR:${FC_0} Unknown argement ${FC_3}$2${FC_0}";;
+esac
+;;
+
+###############
+VAR_NOT_SET*)##########################################################
+###############
+case $lang in
+ru) echo -e "${FC_2}Ошибка:${FC_0} Переменная ${FC_3}$2${FC_0} не установлена";;
+uk) echo -e "${FC_2}Помилка:${FC_0} Змінна ${FC_3}$2${FC_0} не встановлена";;
+*)  echo -e "${FC_2}ERROR:${FC_0} Variable ${FC_3}$2${FC_0} not set";;
+esac
+;;
+
+##########
+NOT_FOUND_CONFIG*)###################################################
+############
+case $lang in
+ru) echo -e "${FC_2}Ошибка:${FC_0} Не найден конфигурационный файл ${FC_3}$2${FC_0}";;
+uk) echo -e "${FC_2}Помилка:${FC_0} Не знайдено конфігураційний файл ${FC_3}$2${FC_0}";;
+*)  echo -e "${FC_2}ERROR:${FC_0} Not found config file ${FC_3}$2${FC_0}";;
+esac
+;;
+
+##########
+NOT_SPECIFIED_PARAMETER*)###################################################
+############
+case $lang in
+ru) echo -e "${FC_2}Ошибка:${FC_0} Не указан параметр ${FC_3}$2${FC_0}";;
+uk) echo -e "${FC_2}Помилка:${FC_0} Не вказано параметр ${FC_3}$2${FC_0}";;
+*)  echo -e "${FC_2}ERROR:${FC_0} Not specified parameter ${FC_3}$2${FC_0}";;
+esac
+;;
+
+#############
+DIRECTORY_NOT_FOUND*)
+#############
+case $lang in
+ru) echo -e "${FC_2}Ошибка:${FC_0} Каталог ${FC_3}$2${FC_0} не найден";;
+uk) echo -e "${FC_2}Помилка:${FC_0} Каталог ${FC_3}$2${FC_0} не знайдено";;
+*)  echo -e "${FC_2}ERROR:${FC_0} Directory ${FC_3}$2${FC_0} not found";;
+esac
+;;
+
+################
+FAILED_EXECUTE_COMMAND*)
+################
+case $lang in
+ru) echo -e "${FC_2}Ошибка:${FC_4} Не удалось выполнить команду ${FC_3}$2${FC_0}";;
+uk) echo -e "${FC_2}Помилка:${FC_4} Не вдалося виконати команду ${FC_3}$2${FC_0}";;
+*)  echo -e "${FC_2}ERROR:${FC_4} Failed to execute the command ${FC_3}$2${FC_0}";;
+esac
+;;
+
+################
+DEMON_AUTOSTART*)
+################
+case $lang in
+ru) echo -e "${FC_4}Демон ${FC_3}$2${FC_4} был добавлен в автозапуск${FC_0}";;
+uk) echo -e "${FC_4}Демон ${FC_3}$2${FC_4} було додано до автозапуску${FC_0}";;
+*)  echo -e "${FC_4}The demon ${FC_3}$2${FC_4} has been added to auto start${FC_0}";;
+esac;;
+
+################
+ADD_DAEMON_AUTOSTART*)
+################
+case $lang in
+ru) echo -e "${FC_4}Добавить в автозапуск демон ${FC_3}$2${FC_4} systemd? ${FC_3}(y/n)${FC_0}";;
+uk) echo -e "${FC_4}Додати до автозапуску демон ${FC_3}$2${FC_4} systemd? ${FC_3}(y/n)${FC_0}";;
+*)  echo -e "${FC_4}Add the demon ${FC_3}$2${FC_4} systemd to the autostart? ${FC_3}(y/n)${FC_0}";;
+esac;;
+
+*)
+echo -e "Unknown string $1";
+exit 1
+esac
+}

@@ -1,0 +1,86 @@
+#!/bin/bash
+
+BASE_NAME=`basename "$0"`
+CURRENT_VERSION=0.0.0
+INSTALL_PREFIX=/usr
+PO_DIR=${INSTALL_PREFIX}/share/${BASE_NAME}
+
+#Loading message file
+if [ -f "${PO_DIR}/$BASE_NAME.messages" ]; then
+   . "${PO_DIR}/$BASE_NAME.messages"
+else
+  case $lang in
+       ru) echo -e "\e[31mОшибка:\e[0m не найден файл $BASE_NAME.messages в '${PO_DIR}'!!!";;
+       uk) echo -e "\e[31mПомилка:\e[0m не знайдений файл $BASE_NAME.messages у '${PO_DIR}'!!!";;
+       *)  echo -e "\e[31mError:\e[0m file $BASE_NAME.messages not found in '${PO_DIR}'!!!";;
+  esac
+  exit 1
+fi
+
+if ! [ -f /etc/sound-events.conf ]; then
+   show_message NOT_FOUND_CONFIG "/etc/sound-events.conf"
+   exit 1;
+else
+  source /etc/sound-events.conf
+fi
+
+if [ -z "${DEVICE_NAME}" ]; then
+   show_message VAR_NOT_SET 'DEVICE_NAME'
+   exit 1;
+fi
+
+if [ -z "${SOUND_DIR}" ]; then
+   show_message VAR_NOT_SET 'SOUND_DIR'
+   exit 1;
+fi
+
+if [ -z "${AUDIO_THEME}" ]; then
+   show_message VAR_NOT_SET 'AUDIO_THEME'
+   exit 1;
+fi
+
+if [ -z "${LANG}" ]; then
+   LANG=en
+fi
+
+SOUND_EVENT=""
+
+#========================
+set_options(){
+  PARAM="$1"
+  if [ -z "${PARAM}" ]; then
+     PARAM="-h"
+  fi
+  while [ ! -z "${PARAM}" ]; do
+        case ${PARAM} in
+             -v)
+                show_message CURRENT_VERSION
+                exit 0
+                ;;
+             -h|--help)
+                show_message SHOW_USAGE
+                exit 0
+                ;;
+             -startup)
+                SOUND_EVENT="system-boot-complete"
+                break
+                ;;
+             -shutdown)
+                SOUND_EVENT="system-shutdown-progress"
+                break
+                ;;
+             *) show_message UNKNOWN_ARG ${PARAM}
+                exit 1
+               ;;
+        esac
+        shift
+  done
+}
+
+set_options $1
+
+aplay -D ${DEVICE_NAME} ${SOUND_DIR}/${AUDIO_THEME}/${LANG}/${SOUND_EVENT}.wav
+
+if [ "$?" = 1 ]; then
+   exit 1;
+fi

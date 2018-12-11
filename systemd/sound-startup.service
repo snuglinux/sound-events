@@ -1,0 +1,11 @@
+[Unit]
+Description=Playing sounds when the system boots
+After=sound.target
+Requires=sound.target
+
+[Service]
+Type=forking
+ExecStart=/bin/sound-events -startup
+
+[Install]
+WantedBy=default.target
