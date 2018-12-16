@@ -20,6 +20,8 @@ ${BASE_NAME} - скрипт для выполнения звуковых соб�
 				
  -shutdown: Завершение работы системы.
 				
+ -powerbtn: Нажата кнопка питания.
+				
 Пример: ${BASE_NAME} -h
 
 EOFUSAGE
@@ -39,6 +41,8 @@ ${BASE_NAME} - скрипт для виконання звукових поді�
 				
  -shutdown: Завершення роботи системи.
 				
+ -powerbtn: Натиснута кнопка живлення.
+				
 Приклад: ${BASE_NAME} -h
 
 EOFUSAGE
@@ -57,6 +61,8 @@ Use the following command line options:
  -startup: System boot complete.
 				
  -shutdown: System shutdown is in progress.
+				
+ -powerbtn: Power button pressed.
 				
 Example: ${BASE_NAME} -h
 
