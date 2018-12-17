@@ -12,4 +12,7 @@ To voice pressing the power button, run the following command:
 When you press the power button, the script will be executed:
   /etc/acpi/powerbtn.sh
 
+An example of playing from the command line:
+  sound-events -powerbtn
+
 The website distribution https://snuglinux.pp.ua

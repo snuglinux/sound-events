@@ -36,4 +36,3 @@ package(){
   cp -R   sounds/*                "${pkgdir}/usr/share/sounds/${pkgname}"
   sed -e "s/CURRENT_VERSION=0.0.0/CURRENT_VERSION=${pkgver}/" -i "${pkgdir}/usr/bin/${pkgname}"
 }
-

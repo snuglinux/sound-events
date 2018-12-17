@@ -77,6 +77,10 @@ set_options(){
                 SOUND_EVENT="power-button-pressed"
                 break
                 ;;
+             -shutdown-all-vm)
+                SOUND_EVENT="shutdown-all-virtual-machines"
+                break
+                ;;
              *) show_message UNKNOWN_ARG ${PARAM}
                 exit 1
                ;;
