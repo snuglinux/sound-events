@@ -6,6 +6,7 @@ case "$1" in
             PBTN|PWRF)
                 /bin/sound-events -powerbtn;
                 logger 'Power button pressed';
+                #/bin/virtualbox-all-poweroff;
                 #systemctl poweroff;
                 ;;
             *)
